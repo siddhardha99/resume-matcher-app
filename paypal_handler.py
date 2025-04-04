@@ -6,9 +6,17 @@ from datetime import datetime, timedelta
 # Initialize PayPal with your API credentials
 def initialize_paypal():
     # Get PayPal API credentials from environment variables or Streamlit secrets
-    client_id = os.environ.get('PAYPAL_CLIENT_ID') or st.secrets.get('paypal', {}).get('client_id')
-    client_secret = os.environ.get('PAYPAL_CLIENT_SECRET') or st.secrets.get('paypal', {}).get('client_secret')
+    client_id = os.environ.get('PAYPAL_CLIENT_ID') 
+    client_secret = os.environ.get('PAYPAL_CLIENT_SECRET')
     
+    # Try to get from secrets if not in environment variables
+    if not client_id and 'paypal' in st.secrets:
+        client_id = st.secrets["paypal"]["client_id"]
+    
+    if not client_secret and 'paypal' in st.secrets:
+        client_secret = st.secrets["paypal"]["client_secret"]
+    
+    # If still not found, ask user to input
     if not client_id or not client_secret:
         client_id = st.sidebar.text_input("Enter your PayPal Client ID", type="password")
         client_secret = st.sidebar.text_input("Enter your PayPal Client Secret", type="password")
