@@ -99,10 +99,13 @@ def create_premium_subscription(return_url, cancel_url):
     
     if billing_plan.create() and billing_plan.activate():
         # Create billing agreement
+        # Add sufficient time to the start date (1 day in the future)
+        start_date = (datetime.utcnow() + timedelta(days=1)).isoformat() + 'Z'
+        
         billing_agreement = paypalrestsdk.BillingAgreement({
             "name": "Resume Matcher Premium Subscription",
             "description": "Monthly subscription for unlimited resume analyses",
-            "start_date": (datetime.utcnow() + timedelta(minutes=5)).isoformat(),
+            "start_date": start_date,
             "plan": {
                 "id": billing_plan.id
             },
