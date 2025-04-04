@@ -44,12 +44,20 @@ if is_authenticated and paypal_initialized:
             st.sidebar.info(f"Analyses Remaining: {analyses_remaining}")
         
         # OpenAI API key
-        api_key = st.sidebar.text_input("Enter your OpenAI API key", type="password")
-        if not api_key:
-            st.warning("Please enter your OpenAI API key to proceed.")
-            st.stop()
-        else:
+        api_key = os.environ.get('OPENAI_API_KEY')
+        # Try to get from secrets if not in environment variables
+        if not api_key and 'openai' in st.secrets:
+            api_key = st.secrets["openai"]["api_key"]
             os.environ["OPENAI_API_KEY"] = api_key
+        
+        # If still not found, ask user to input
+        if not api_key:
+            api_key = st.sidebar.text_input("Enter your OpenAI API key", type="password")
+            if not api_key:
+                st.warning("Please enter your OpenAI API key to proceed.")
+                st.stop()
+            else:
+                os.environ["OPENAI_API_KEY"] = api_key
             
         # File uploader for resume
         resume_file = st.file_uploader("Upload your resume (PDF, DOCX, or TXT)", type=["pdf", "docx", "txt"])
