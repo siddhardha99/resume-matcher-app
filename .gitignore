@@ -1,0 +1,54 @@
+# Python virtual environment
+venv/
+env/
+ENV/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environment variables and secrets
+.env
+.streamlit/secrets.toml
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Log files
+*.log
+logs/
+
+# Database files
+*.db
+*.sqlite3
+
+# Large data files
+*.csv
+*.xlsx
+*.xls
+*.pdf
+*.docx
+*.doc
+
+# Credentials
+auth_config.yaml
+
+# Other
+.coverage
+htmlcov/

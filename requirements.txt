@@ -1,0 +1,10 @@
+streamlit
+langchain
+langchain-openai
+langchain-core
+langgraph
+python-docx
+PyPDF2
+streamlit-authenticator
+pyyaml
+paypalrestsdk
